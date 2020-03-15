@@ -1,8 +1,15 @@
 #!/bin/bash
+#
+# create kubernetes certificate files.
+#
 
+DIR=cert
 
-mkdir cert/
-cd cert/
+if [ ! -d "$DIR" ]; then
+    mkdir $DIR
+    cd $DIR
+fi
+
 
 cat > openssl.cnf <<EOF
 [req]
@@ -66,18 +73,3 @@ openssl_k8s "front-proxy-ca" "front-proxy-client" "/CN=front-proxy-client"
 
 openssl genrsa -out sa.key 2048
 openssl rsa -in sa.key -pubout -out sa.pub
-
-
-BOOTSTRAP_TOKEN="$(head -c 6 /dev/urandom | md5sum | head -c 6).$(head -c 16 /dev/urandom | md5sum | head -c 16)"
-echo "$BOOTSTRAP_TOKEN,system:bootstrapper,10001,\"system:bootstrappers\"" > token.csv
-
-
-
-
-
-
-
-
-
-
-
