@@ -8,6 +8,8 @@ DIR=cert
 if [ ! -d "$DIR" ]; then
     mkdir $DIR
     cd $DIR
+else
+    cd $DIR
 fi
 
 
