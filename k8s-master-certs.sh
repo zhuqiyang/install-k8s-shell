@@ -3,40 +3,11 @@
 # create kubernetes certificate files.
 #
 
-DIR=cert
 
-if [ ! -d "$DIR" ]; then
-    mkdir $DIR
-    cd $DIR
-else
-    cd $DIR
+if [ ! -e "openssl.cnf" ]; then
+	echo "no openssl.cnf"
+	exit
 fi
-
-
-cat > openssl.cnf <<EOF
-[req]
-req_extensions = v3_req
-distinguished_name = req_distinguished_name
-[ req_distinguished_name ]
-[ v3_req ]
-basicConstraints = CA:FALSE
-keyUsage = nonRepudiation, digitalSignature, keyEncipherment
-subjectAltName = @alt_names
-[alt_names]
-DNS.1 = kubernetes
-DNS.2 = kubernetes.default
-DNS.3 = kubernetes.default.svc
-DNS.4 = kubernetes.default.svc.cluster.local
-DNS.5 = k8s-master01
-DNS.6 = k8s-master02
-DNS.7 = k8s-master03
-DNS.8 = k8s-master
-DNS.9 = localhost
-DNS.10 = etcd01
-DNS.11 = etcd02
-DNS.12 = etcd03
-IP.1 = 10.96.0.1
-EOF
 
 
 #
@@ -48,6 +19,7 @@ function openssl_ca() {
     openssl genrsa -out $1.key 2048
     openssl req -x509 -new -nodes -key $1.key -subj "$2" -days 5000 -out $1.crt
 }
+
 
 #
 # example:
