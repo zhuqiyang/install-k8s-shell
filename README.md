@@ -1,2 +1,2 @@
-# 安装 k8s-master 和 node
-快速搭建实验环境
+# 安装kubernetes的master节点 和 node节点
+    快速搭建实验环境
