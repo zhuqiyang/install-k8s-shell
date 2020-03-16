@@ -1,7 +1,7 @@
 # 安装node节点
 
 
-#### 运行 k8s-install-kubelet.sh 脚本前准备下面几个文件
+### 运行 k8s-install-kubelet.sh 脚本前准备下面几个文件
 + ca.crt
 + bootstrap.conf
 
@@ -16,7 +16,7 @@ cni插件：https://github.com/containernetworking/plugins/releases
 
 
 
-#### k8s-install-kube-proxy.sh
+### 运行 k8s-install-kube-proxy.sh 脚本前要准备的文件
 + kube-proxy.conf
 
 ##### 获取kube-proxy.conf文件的，在master节点上运行下面命令
