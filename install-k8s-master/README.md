@@ -1,7 +1,8 @@
 # 此脚本用来安装master节点，用于平时的实验环境
 
-+ k8s-master-certs.sh：生成证书文件
-+ k8s-master-config.sh：生成k8s-master所有的配置文件
++ install-k8s-master.sh 主脚本，运行这个脚本就行了
++ k8s-master-certs.sh   生成证书文件
++ k8s-master-config.sh  生成k8s-master所有的配置文件
 
 安装好etcd之后运行 install-k8s-master.sh 脚本
 
