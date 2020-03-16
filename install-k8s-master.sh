@@ -30,16 +30,15 @@ fi
 
 
 
-if [ ! -d "/etc/kubernetes/cert" ]; then
-    mkdir /etc/kubernetes/cert -pv
+if [ ! -d "/etc/kubernetes" ]; then
+    mkdir /etc/kubernetes -pv
 fi
-mv openssl.cnf /etc/kubernetes/cert
-cd /etc/kubernetes/cert
+cd /etc/kubernetes
 
 
 
 # create certificate files
-bash $CURRENT_DIR/$CERT_SCRIPT
+bash $CURRENT_DIR/$CERT_SCRIPT $HOSTNAME
 # create configuration files
 bash $CURRENT_DIR/$CONFIG_SCRIPT
 
@@ -79,7 +78,6 @@ kubectl config set-cluster kubernetes --server="https://$HOSTNAME:6443" --certif
 kubectl config set-credentials k8s --client-certificate=/etc/kubernetes/cert/apiserver-kubelet-client.crt --client-key=/etc/kubernetes/cert/apiserver-kubelet-client.key --embed-certs=true
 kubectl config set-context k8s@kubernetes --cluster=kubernetes --user=k8s
 kubectl config use-context k8s@kubernetes
-kubectl create clusterrolebinding system:bootstrapper --user=system:bootstrapper --clusterrole=system:node-bootstrapper
 
 
 

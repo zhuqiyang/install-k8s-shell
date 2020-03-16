@@ -3,11 +3,34 @@
 # create kubernetes certificate files.
 #
 
+export HOSTNAME=${1-"k8s17-master"}
 
-if [ ! -e "openssl.cnf" ]; then
-	echo "no openssl.cnf"
-	exit
+
+if [ ! -d "cert/" ]; then
+    mkdir cert/
 fi
+cd cert/
+
+
+cat > openssl.cnf <<EOF
+[req]
+req_extensions = v3_req
+distinguished_name = req_distinguished_name
+[ req_distinguished_name ]
+[ v3_req ]
+basicConstraints = CA:FALSE
+keyUsage = nonRepudiation, digitalSignature, keyEncipherment
+subjectAltName = @alt_names
+[alt_names]
+DNS.1 = kubernetes
+DNS.2 = kubernetes.default
+DNS.3 = kubernetes.default.svc
+DNS.4 = kubernetes.default.svc.cluster.local
+DNS.5 = $HOSTNAME
+DNS.6 = localhost
+DNS.7 = etcd
+IP.1 = 10.96.0.1
+EOF
 
 
 #
