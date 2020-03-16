@@ -21,4 +21,5 @@
 ## 备注
 
 k8s-master-certs.sh 生成证书文件
+
 k8s-master-config.sh 生成k8s-master所有的配置文件
