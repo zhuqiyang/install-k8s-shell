@@ -31,6 +31,7 @@ bash -x k8s-install-kubelet.sh cni-plugins-linux-amd64-v0.8.5.tgz
 ```
 
 <br>
+
 #### 运行 k8s-install-kube-proxy.sh 脚本前要准备的文件
 
 + kube-proxy.conf
