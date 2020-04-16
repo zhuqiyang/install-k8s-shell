@@ -42,6 +42,7 @@ kubectl config --kubeconfig=kube-proxy.conf use-context system:kube-proxy@kubern
 <br>
 #### 安装网络插件
 &nbsp;&nbsp;&nbsp;&nbsp;这里安装的是flannel
+
 ```console
 kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
 ```
