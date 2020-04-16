@@ -42,7 +42,7 @@ sysctl -p
 
 
 
-if [ -e "K8S_PACKAGE" ]; then
+if [ -e "$K8S_PACKAGE" ]; then
     tar -xf $K8S_PACKAGE
 fi
 
