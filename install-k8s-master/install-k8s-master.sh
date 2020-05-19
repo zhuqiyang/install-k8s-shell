@@ -1,9 +1,11 @@
 #!/bin/bash
 
-export K8S_PACKAGE_NAME=${1-"kubernetes-server-linux-amd64.tar.gz"}
-export HOSTNAME=${2-"k8s-master"}
+export ETCD_LISTEN_IP=${1}
+export K8S_PACKAGE_NAME=${2-"kubernetes-server-linux-amd64.tar.gz"}
+export HOSTNAME=${3-"k8s-master"}
 export CERT_SCRIPT=k8s-master-certs.sh
 export CONFIG_SCRIPT=k8s-master-config.sh
+export INSTALL_ETCD=install-etcd.sh
 export CURRENT_DIR=$(pwd)
 
 
@@ -36,7 +38,8 @@ fi
 cd /etc/kubernetes
 
 
-
+# install etcd
+bash $CURRENT_DIR/$INSTALL_ETCD $ETCD_LISTEN_IP
 # create certificate files
 bash $CURRENT_DIR/$CERT_SCRIPT $HOSTNAME
 # create configuration files
@@ -103,3 +106,23 @@ chmod 644 scheduler.conf
 
 
 cd $CURRENT_DIR
+
+# enable services
+systemctl enable kube-apiserver.service
+systemctl start kube-apiserver.service
+systemctl status kube-apiserver.service
+
+
+kubectl create clusterrolebinding system:bootstrapper --user=system:bootstrapper --clusterrole=system:node-bootstrapper
+kubectl create clusterrolebinding auto-approve-csrs-for-group --group=system:bootstrappers --clusterrole=system:certificates.k8s.io:certificatesigningrequests:nodeclient
+kubectl create clusterrolebinding auto-approve-renewals-for-nodes --group=system:nodes --clusterrole=system:certificates.k8s.io:certificatesigningrequests:selfnodeclient
+
+
+systemctl enable kube-controller-manager.service
+systemctl start kube-controller-manager.service
+systemctl status kube-controller-manager.service
+
+
+systemctl enable kube-scheduler.service
+systemctl start kube-scheduler.service
+systemctl status kube-scheduler.service

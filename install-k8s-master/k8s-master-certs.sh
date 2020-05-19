@@ -3,7 +3,7 @@
 # create kubernetes certificate files.
 #
 
-export HOSTNAME=${1-"k8s17-master"}
+export HOSTNAME=${1-"k8s-master"}
 
 
 if [ ! -d "cert/" ]; then
