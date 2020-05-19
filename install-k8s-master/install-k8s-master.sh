@@ -51,10 +51,10 @@ if [ ! -d "/etc/kubernetes" ]; then
 fi
 cd /etc/kubernetes
 
-
 cat >> /etc/hosts <<EOF
 $ETCD_LISTEN_IP k8s-master etcd
 EOF
+
 
 # install etcd
 bash $CURRENT_DIR/$INSTALL_ETCD $ETCD_LISTEN_IP
@@ -91,8 +91,6 @@ if [ $? -ne 0 ]; then
     exit
 fi
 
-
-
 # create .kube/config file
 kubectl=/usr/bin/kubectl
 kubectl config set-cluster kubernetes --server="https://$HOSTNAME:6443" --certificate-authority=/etc/kubernetes/cert/ca.crt --embed-certs=true
@@ -102,14 +100,12 @@ kubectl config use-context k8s@kubernetes
 
 
 cd /etc/kubernetes
-
 # controller-manager
 kubectl config --kubeconfig=controller-manager.conf set-cluster kubernetes --server="https://$HOSTNAME:6443" --certificate-authority=/etc/kubernetes/cert/ca.crt --embed-certs=true
 kubectl config --kubeconfig=controller-manager.conf set-credentials system:kube-controller-manager --client-certificate=/etc/kubernetes/cert/kube-controller-manager.crt --client-key=/etc/kubernetes/cert/kube-controller-manager.key --embed-certs=true
 kubectl config --kubeconfig=controller-manager.conf set-context system:kube-controller-manager@kubernetes --cluster=kubernetes --user=system:kube-controller-manager
 kubectl config --kubeconfig=controller-manager.conf use-context system:kube-controller-manager@kubernetes
 chmod 644 controller-manager.conf
-
 
 
 # scheduler
@@ -127,17 +123,15 @@ systemctl enable kube-apiserver.service
 systemctl start kube-apiserver.service
 systemctl status kube-apiserver.service
 
+systemctl enable kube-controller-manager.service
+systemctl start kube-controller-manager.service
+systemctl status kube-controller-manager.service
+
+systemctl enable kube-scheduler.service
+systemctl start kube-scheduler.service
+systemctl status kube-scheduler.service
 
 kubectl create clusterrolebinding system:bootstrapper --user=system:bootstrapper --clusterrole=system:node-bootstrapper
 kubectl create clusterrolebinding auto-approve-csrs-for-group --group=system:bootstrappers --clusterrole=system:certificates.k8s.io:certificatesigningrequests:nodeclient
 kubectl create clusterrolebinding auto-approve-renewals-for-nodes --group=system:nodes --clusterrole=system:certificates.k8s.io:certificatesigningrequests:selfnodeclient
 
-
-systemctl enable kube-controller-manager.service
-systemctl start kube-controller-manager.service
-systemctl status kube-controller-manager.service
-
-
-systemctl enable kube-scheduler.service
-systemctl start kube-scheduler.service
-systemctl status kube-scheduler.service
