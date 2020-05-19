@@ -15,6 +15,9 @@ if [ ! -e "$CNI_PACKAGE" ]; then
     exit
 fi
 
+if [ ! -z "$PROXY_IP" ]; then
+    read -p "Please enter proxy ip: " PROXY_IP
+fi
 
 
 #########################
@@ -23,6 +26,7 @@ fi
 #                       #
 #########################
 
+wget -O /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo
 wget -O /etc/yum.repos.d/docker-ce.repo https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
 yum install docker-ce -y
 
@@ -209,7 +213,6 @@ EOF
 #                       #
 #########################
 
-
 kubectl config --kubeconfig=kube-proxy.conf set-cluster kubernetes --server="https://k8s-master:6443" --certificate-authority=/etc/kubernetes/cert/ca.crt --embed-certs=true
 kubectl config --kubeconfig=kube-proxy.conf set-credentials system:kube-proxy --client-certificate=/etc/kubernetes/cert/kube-proxy.crt --client-key=/etc/kubernetes/cert/kube-proxy.key --embed-certs=true
 kubectl config --kubeconfig=kube-proxy.conf set-context system:kube-proxy@kubernetes --cluster=kubernetes --user=system:kube-proxy
@@ -306,3 +309,11 @@ bash /etc/sysconfig/modules/ipvs.modules
 lsmod | grep ip_vs
 
 
+# enable services
+systemctl enable kubelet.service
+systemctl start kubelet.service
+systemctl status kubelet.service
+
+systemctl enable kube-proxy.service
+systemctl start kube-proxy.service
+systemctl status kube-proxy.service

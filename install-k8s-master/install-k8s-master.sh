@@ -52,6 +52,10 @@ fi
 cd /etc/kubernetes
 
 
+cat >> /etc/hosts <<EOF
+$ETCD_LISTEN_IP k8s-master etcd
+EOF
+
 # install etcd
 bash $CURRENT_DIR/$INSTALL_ETCD $ETCD_LISTEN_IP
 # create certificate files
