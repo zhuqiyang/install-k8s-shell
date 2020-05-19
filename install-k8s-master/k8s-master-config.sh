@@ -25,7 +25,7 @@ KUBE_LOGTOSTDERR="--logtostderr=true"
 KUBE_LOG_LEVEL="--v=1"
  
 # Should this cluster be allowed to run privileged docker containers
-KUBE_ALLOW_PRIV="--allow-privileged=true"
+#KUBE_ALLOW_PRIV="--allow-privileged=true"
 EOF
 
 cat > /usr/lib/systemd/system/kube-apiserver.service <<EOF
@@ -72,7 +72,7 @@ KUBE_API_ADDRESS="--advertise-address=0.0.0.0"
 KUBE_API_PORT="--secure-port=6443 --insecure-port=0"
  
 # Comma separated list of nodes in the etcd cluster
-KUBE_ETCD_SERVERS="--etcd-servers=https://etcd01:2379,https://etcd02:2379,https://etcd03:2379"
+KUBE_ETCD_SERVERS="--etcd-servers=https://etcd:2379"
  
 # Address range to use for services
 KUBE_SERVICE_ADDRESSES="--service-cluster-ip-range=10.96.0.0/12"

@@ -1,8 +1,7 @@
 #!/bin/bash
 
-export PROXY_IP=${1-"192.168.0.12"}
-export CNI_PACKAGE=${2-"cni-plugins-linux-amd64-v0.8.5.tgz"}
-
+export CNI_PACKAGE=${1-"cni-plugins-linux-amd64-v0.8.5.tgz"}
+export PROXY_IP=${2-"192.168.0.12"}
 
 
 
@@ -10,11 +9,20 @@ function echo_red() {
     echo -e "\033[31m$1\033[0m"
 }
 
+# check if cni-plugins exists
+if [ ! -e "$CNI_PACKAGE" ]; then
+    echo_red "no such file $CNI_PACKAGE"
+    exit
+fi
+
+
+
 #########################
 #                       #
 #   install docker-ce   #
 #                       #
 #########################
+
 wget -O /etc/yum.repos.d/docker-ce.repo https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
 yum install docker-ce -y
 
@@ -51,15 +59,9 @@ mkdir /etc/kubernetes/manifests
 # move binary
 cp kubernetes/server/bin/kube-proxy kubernetes/server/bin/kubelet /usr/local/kubernetes/
 
-
-# cni-plugins
-if [ -e "$CNI_PACKAGE" ]; then
-    mkdir -p /opt/cni/bin
-    tar -xf $CNI_PACKAGE -C /opt/cni/bin/
-else
-    echo_red "no such file $CNI_PACKAGE"
-    exit
-fi
+# cni-plugins install
+mkdir -p /opt/cni/bin
+tar -xf $CNI_PACKAGE -C /opt/cni/bin/
 
 
 # bootstrap.conf
@@ -70,7 +72,6 @@ kubectl config --kubeconfig=bootstrap.conf set-context system:bootstrapper@kuber
 kubectl config --kubeconfig=bootstrap.conf use-context system:bootstrapper@kubernetes
 cp bootstrap.conf /etc/kubernetes/
 chmod 644 /etc/kubernetes/bootstrap.conf
-
 
 
 
@@ -200,6 +201,8 @@ EOF
 
 
 
+
+
 #########################
 #                       #
 #  install kube-proxy   #
@@ -286,6 +289,7 @@ EOF
 
 
 
+# ipvs.modules
 cat > /etc/sysconfig/modules/ipvs.modules <<EOF
 #!/bin/bash
 ipvs_mods_dir="/usr/lib/modules/\$(uname -r)/kernel/net/netfilter/ipvs"
@@ -297,12 +301,8 @@ for i in \$(ls \$ipvs_mods_dir | grep -o "^[^.]*"); do
 done
 EOF
 
-
-
 chmod +x /etc/sysconfig/modules/ipvs.modules
 bash /etc/sysconfig/modules/ipvs.modules
 lsmod | grep ip_vs
-
-
 
 
