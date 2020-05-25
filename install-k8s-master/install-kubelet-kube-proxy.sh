@@ -9,12 +9,19 @@ function echo_red() {
     echo -e "\033[31m$1\033[0m"
 }
 
+# check binary file exists
+if [ ! -e "kubernetes" ]; then
+    echo "k8s binary file not exists!"
+    exit
+fi
+
 # check if cni-plugins exists
 if [ ! -e "$CNI_PACKAGE" ]; then
     echo_red "no such file $CNI_PACKAGE"
     exit
 fi
 
+# enter proxy ip
 if [ ! -z "$PROXY_IP" ]; then
     read -p "Please enter proxy ip: " PROXY_IP
 fi
