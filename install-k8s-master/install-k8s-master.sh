@@ -13,7 +13,7 @@ export CURRENT_DIR=$(pwd)
 if [ -z "$ETCD_LISTEN_IP" ]; then
 cat <<EOF
 
-bash install-k8s-master.sh kubernetes-server-linux-amd64.tar.gz 192.168.1.20 k8s-master
+    bash install-k8s-master.sh kubernetes-server-linux-amd64.tar.gz 192.168.1.20 k8s-master
 
 EOF
 fi
@@ -65,6 +65,7 @@ if [ ! -d "/etc/kubernetes" ]; then
 fi
 cd /etc/kubernetes
 
+# add dns to hosts file
 cat >> /etc/hosts <<EOF
 $ETCD_LISTEN_IP k8s-master etcd
 EOF
@@ -137,6 +138,11 @@ systemctl enable kube-apiserver.service
 systemctl start kube-apiserver.service
 systemctl status kube-apiserver.service
 
+sleep 5
+kubectl create clusterrolebinding system:bootstrapper --user=system:bootstrapper --clusterrole=system:node-bootstrapper
+kubectl create clusterrolebinding auto-approve-csrs-for-group --group=system:bootstrappers --clusterrole=system:certificates.k8s.io:certificatesigningrequests:nodeclient
+kubectl create clusterrolebinding auto-approve-renewals-for-nodes --group=system:nodes --clusterrole=system:certificates.k8s.io:certificatesigningrequests:selfnodeclient
+
 systemctl enable kube-controller-manager.service
 systemctl start kube-controller-manager.service
 systemctl status kube-controller-manager.service
@@ -144,9 +150,4 @@ systemctl status kube-controller-manager.service
 systemctl enable kube-scheduler.service
 systemctl start kube-scheduler.service
 systemctl status kube-scheduler.service
-
-sleep 5
-kubectl create clusterrolebinding system:bootstrapper --user=system:bootstrapper --clusterrole=system:node-bootstrapper
-kubectl create clusterrolebinding auto-approve-csrs-for-group --group=system:bootstrappers --clusterrole=system:certificates.k8s.io:certificatesigningrequests:nodeclient
-kubectl create clusterrolebinding auto-approve-renewals-for-nodes --group=system:nodes --clusterrole=system:certificates.k8s.io:certificatesigningrequests:selfnodeclient
 
