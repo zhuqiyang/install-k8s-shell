@@ -1,7 +1,7 @@
 #!/bin/bash
 
-export ETCD_LISTEN_IP="$1"
-export K8S_PACKAGE_NAME=${2-"kubernetes-server-linux-amd64.tar.gz"}
+export K8S_PACKAGE_NAME=${1-"kubernetes-server-linux-amd64.tar.gz"}
+export ETCD_LISTEN_IP="$2"
 export HOSTNAME=${3-"k8s-master"}
 export CERT_SCRIPT=k8s-master-certs.sh
 export CONFIG_SCRIPT=k8s-master-config.sh
@@ -10,21 +10,35 @@ export CURRENT_DIR=$(pwd)
 
 
 
+if [ -z "$ETCD_LISTEN_IP" ]; then
+cat <<EOF
+
+bash install-k8s-master.sh kubernetes-server-linux-amd64.tar.gz 192.168.1.20 k8s-master
+
+EOF
+fi
+
 # check if the files exists
 function echo_red() {
     echo -e "\033[31m$1\033[0m"
 }
 
-# get etcd listen ip
-if [ -z "$ETCD_LISTEN_IP" ]; then
-    read -p "Please enter etcd listen ip: " IP
-    export ETCD_LISTEN_IP=$IP
-fi
-
 # check if kubernetes binary package exists
 if [ ! -e "$K8S_PACKAGE_NAME" ]; then
     echo_red "$K8S_PACKAGE_NAME no such file"
     exit
+fi
+
+# get etcd listen ip
+if [ -z "$ETCD_LISTEN_IP" ]; then
+    read -p "Please enter etcd listen ip: " IP
+    ETCD_LISTEN_IP=$IP
+fi
+
+# user enter hostname
+read -p "Please enter current hostname [k8s-master]: " hostname
+if [ -n "$hostname" ]; then
+    HOSTNAME=$hostname
 fi
 
 # check if cert makefile exists
@@ -131,6 +145,7 @@ systemctl enable kube-scheduler.service
 systemctl start kube-scheduler.service
 systemctl status kube-scheduler.service
 
+sleep 5
 kubectl create clusterrolebinding system:bootstrapper --user=system:bootstrapper --clusterrole=system:node-bootstrapper
 kubectl create clusterrolebinding auto-approve-csrs-for-group --group=system:bootstrappers --clusterrole=system:certificates.k8s.io:certificatesigningrequests:nodeclient
 kubectl create clusterrolebinding auto-approve-renewals-for-nodes --group=system:nodes --clusterrole=system:certificates.k8s.io:certificatesigningrequests:selfnodeclient
