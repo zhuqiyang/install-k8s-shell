@@ -45,7 +45,9 @@ sed -i '/ExecStart=/i\Environment=NO_PROXY=127.0.0.0/8,192.168.1.0/24' /usr/lib/
 
 
 systemctl daemon-reload
-systemctl start docker
+systemctl start docker.service
+systemctl enable docker.service
+systemctl status docker.service
 docker info
 
 
