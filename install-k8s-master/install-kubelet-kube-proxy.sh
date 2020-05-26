@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export CNI_PACKAGE=${1-"cni-plugins-linux-amd64-v0.8.5.tgz"}
+export CNI_PACKAGE=$1
 export PROXY_IP=$2
 export HOSTNAME=$3
 
@@ -9,6 +9,14 @@ function echo_red() {
     echo -e "\033[31m$1\033[0m"
 }
 
+if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ]; then
+cat <<EOF
+
+    bash install-kubelet-kube-proxy.sh cni-plugins-linux-amd64-v0.8.5.tgz 192.168.0.20 k8s-master
+
+EOF
+fi
+
 # check binary file exists
 if [ ! -e "kubernetes" ]; then
     echo "k8s binary file not exists!"
@@ -16,20 +24,20 @@ if [ ! -e "kubernetes" ]; then
 fi
 
 # check if cni-plugins exists
-if [ ! -e "$CNI_PACKAGE" ]; then
-    echo_red "no such file $CNI_PACKAGE"
+if [ ! -e "$1" ]; then
+    echo_red "no have cni-plugins-linux-amd64-v0.8.5.tgz"
     exit
 fi
 
 # check proxy ip exists
-if [ -z "$PROXY_IP" ]; then
-    echo_red "Please enter PROXY_IP in \$2: "
+if [ -z "$2" ]; then
+    echo_red "no have proxy ip"
     exit
 fi
 
 # check hostname exists
-if [ -z "$HOSTNAME" ]; then
-    echo_red "Please enter HOSTNAME in \$3: "
+if [ -z "$3" ]; then
+    echo_red "no have hostname"
     exit
 fi
 
