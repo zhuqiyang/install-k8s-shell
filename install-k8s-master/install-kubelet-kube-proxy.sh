@@ -5,9 +5,6 @@ export PROXY_IP=$2
 export HOSTNAME=$3
 
 
-function echo_red() {
-    echo -e "\033[31m$1\033[0m"
-}
 
 if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ]; then
 cat <<EOF
@@ -15,7 +12,12 @@ cat <<EOF
     bash install-kubelet-kube-proxy.sh cni-plugins-linux-amd64-v0.8.5.tgz 192.168.0.20 k8s-master
 
 EOF
+exit
 fi
+
+function echo_red() {
+    echo -e "\033[31m$1\033[0m"
+}
 
 # check binary file exists
 if [ ! -e "kubernetes" ]; then
