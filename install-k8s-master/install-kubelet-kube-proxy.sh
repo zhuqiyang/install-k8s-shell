@@ -1,8 +1,8 @@
 #!/bin/bash
 
 export CNI_PACKAGE=${1-"cni-plugins-linux-amd64-v0.8.5.tgz"}
-export PROXY_IP=${2-"192.168.0.12"}
-export HOSTNAME="k8s-master"
+export PROXY_IP=$2
+export HOSTNAME=$3
 
 
 function echo_red() {
@@ -21,9 +21,16 @@ if [ ! -e "$CNI_PACKAGE" ]; then
     exit
 fi
 
-# enter proxy ip
-if [ ! -z "$PROXY_IP" ]; then
-    read -p "Please enter proxy ip: " PROXY_IP
+# check proxy ip exists
+if [ -z "$PROXY_IP" ]; then
+    echo_red "Please enter PROXY_IP in \$2: "
+    exit
+fi
+
+# check hostname exists
+if [ -z "$HOSTNAME" ]; then
+    echo_red "Please enter HOSTNAME in \$3: "
+    exit
 fi
 
 

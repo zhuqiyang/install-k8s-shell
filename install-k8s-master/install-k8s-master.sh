@@ -138,7 +138,7 @@ systemctl enable kube-apiserver.service
 systemctl start kube-apiserver.service
 systemctl status kube-apiserver.service
 
-sleep 5
+sleep 8
 kubectl create clusterrolebinding system:bootstrapper --user=system:bootstrapper --clusterrole=system:node-bootstrapper
 kubectl create clusterrolebinding auto-approve-csrs-for-group --group=system:bootstrappers --clusterrole=system:certificates.k8s.io:certificatesigningrequests:nodeclient
 kubectl create clusterrolebinding auto-approve-renewals-for-nodes --group=system:nodes --clusterrole=system:certificates.k8s.io:certificatesigningrequests:selfnodeclient
