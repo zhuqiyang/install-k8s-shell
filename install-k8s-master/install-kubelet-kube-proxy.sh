@@ -2,7 +2,7 @@
 
 export CNI_PACKAGE=${1-"cni-plugins-linux-amd64-v0.8.5.tgz"}
 export PROXY_IP=${2-"192.168.0.12"}
-
+export HOSTNAME="k8s-master"
 
 
 function echo_red() {
@@ -79,7 +79,7 @@ tar -xf $CNI_PACKAGE -C /opt/cni/bin/
 
 # bootstrap.conf
 token=$(awk -F ',' '{print $1}' /etc/kubernetes/token.csv)
-kubectl config --kubeconfig=bootstrap.conf set-cluster kubernetes --server="https://k8s-master:6443" --certificate-authority=/etc/kubernetes/cert/ca.crt --embed-certs=true
+kubectl config --kubeconfig=bootstrap.conf set-cluster kubernetes --server="https://${HOSTNAME}:6443" --certificate-authority=/etc/kubernetes/cert/ca.crt --embed-certs=true
 kubectl config --kubeconfig=bootstrap.conf set-credentials system:bootstrapper --token=${token}
 kubectl config --kubeconfig=bootstrap.conf set-context system:bootstrapper@kubernetes --user=system:bootstrapper --cluster=kubernetes
 kubectl config --kubeconfig=bootstrap.conf use-context system:bootstrapper@kubernetes
@@ -222,7 +222,7 @@ EOF
 #                       #
 #########################
 
-kubectl config --kubeconfig=kube-proxy.conf set-cluster kubernetes --server="https://k8s-master:6443" --certificate-authority=/etc/kubernetes/cert/ca.crt --embed-certs=true
+kubectl config --kubeconfig=kube-proxy.conf set-cluster kubernetes --server="https://${HOSTNAME}:6443" --certificate-authority=/etc/kubernetes/cert/ca.crt --embed-certs=true
 kubectl config --kubeconfig=kube-proxy.conf set-credentials system:kube-proxy --client-certificate=/etc/kubernetes/cert/kube-proxy.crt --client-key=/etc/kubernetes/cert/kube-proxy.key --embed-certs=true
 kubectl config --kubeconfig=kube-proxy.conf set-context system:kube-proxy@kubernetes --cluster=kubernetes --user=system:kube-proxy
 kubectl config --kubeconfig=kube-proxy.conf use-context system:kube-proxy@kubernetes
