@@ -5,6 +5,8 @@
 + api-server
 + controller-manager
 + scheduler
++ kubelet (可选)
++ kube-proxy (可选)
 
 #### node节点：
 + kubelet

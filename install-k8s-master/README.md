@@ -1,7 +1,7 @@
 # 此脚本用来安装master节点，用于平时的实验环境
 
 安装之前先配置主节点到各个node节点的免秘钥，脚本适用于Centos7
-
+#### 开始安装：
 install-k8s-master.sh 安装master节点上的api-server、controller-manager、scheduler三个组件
 ```console
 bash 01.install-k8s-master.sh 192.168.1.20 kubernetes-server-linux-amd64.tar.gz k8s-master
@@ -18,11 +18,13 @@ bash 03.install-completion.sh
 ```console
 bash 04.install-k8s-node.sh master node1
 ```
-#### 下面几个脚本不用执行
+#### 其他脚本：
+被引用的脚本，不用单独执行。
 + etcd-install.sh 安装etcd的脚本
 + k8s-master-certs.sh 生成证书文件脚本
 + k8s-master-config.sh 生成k8s-master所有的配置文件脚本
 
+#### 安装插件
 安装网络插件：
 ```console
 kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
