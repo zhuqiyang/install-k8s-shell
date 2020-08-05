@@ -56,7 +56,7 @@ cd /etc/kubernetes
 
 # add dns to hosts file
 cat >> /etc/hosts <<EOF
-$ETCD_LISTEN_IP k8s-master etcd
+$ETCD_LISTEN_IP $HOSTNAME etcd
 EOF
 
 

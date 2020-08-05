@@ -9,7 +9,7 @@ export HOSTNAME=$3
 if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ]; then
 cat <<EOF
 
-    bash install-kubelet-kube-proxy.sh cni-plugins-linux-amd64-v0.8.5.tgz 192.168.0.20 k8s-master
+    bash $0 cni-plugins-linux-amd64-v0.8.5.tgz proxy_ip hostname
 
 EOF
 exit

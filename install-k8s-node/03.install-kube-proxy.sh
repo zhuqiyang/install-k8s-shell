@@ -1,17 +1,15 @@
 #!/bin/bash
+###################################
+#                                 #
+#       install kube-proxy        #
+#                                 #
+###################################
 
 
-function echo_red() {
-    echo -e "\033[31m$1\033[0m"
-}
-
-
-if [ -e "kube-proxy.conf" ];then
-    cp kube-proxy.conf /etc/kubernetes/
-else
-    echo_red "no such file kube-proxy.conf"
+cp kube-proxy.conf /etc/kubernetes/
+if [ ! -e "/etc/kubernetes/kube-proxy.conf" ]; then
+        echo -e "\033[31m  file /etc/kubernetes/kube-proxy.conf not exists   \033[0m"
 fi
-
 
 
 cat > /usr/lib/systemd/system/kube-proxy.service <<EOF
@@ -43,6 +41,7 @@ cat > /etc/kubernetes/proxy <<EOF
 # Add your own!
 KUBE_PROXY_ARGS="--config=/var/lib/kube-proxy/config.yaml"
 EOF
+
 
 mkdir /var/lib/kube-proxy -pv
 cat > /var/lib/kube-proxy/config.yaml <<EOF
@@ -84,7 +83,6 @@ portRange: ""
 EOF
 
 
-
 cat > /etc/sysconfig/modules/ipvs.modules <<EOF
 #!/bin/bash
 ipvs_mods_dir="/usr/lib/modules/\$(uname -r)/kernel/net/netfilter/ipvs"
@@ -97,10 +95,7 @@ done
 EOF
 
 
-
 chmod +x /etc/sysconfig/modules/ipvs.modules
 bash /etc/sysconfig/modules/ipvs.modules
 lsmod | grep ip_vs
-
-
 

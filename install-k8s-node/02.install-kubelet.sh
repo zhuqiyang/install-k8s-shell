@@ -1,51 +1,23 @@
 #!/bin/bash
-#
-# install kubelet
-#
+###############################
+#                             #
+#       install kubelet       #
+#                             #
+###############################
 
-export CNI_PACKAGE=${1-"cni-plugins-linux-amd64-v0.8.5.tgz"}
-
-function echo_red() {
-    echo -e "\033[31m$1\033[0m"
-}
+export CNI_PACKAGE=$(ls cni-plugins-linux-amd64-v*.tgz)
 
 
 mkdir /var/lib/kubelet -pv
 mkdir /etc/kubernetes/{cert,manifests} -pv
 
-# ca.crt
-if [ -e "ca.crt" ]; then
-    cp ca.crt /etc/kubernetes/cert/ca.crt
-else
-    echo_red "no such file ca.crt"
-    exit
-fi
+cp kubelet /usr/local/kubernetes/
+cp ca.crt /etc/kubernetes/cert/ca.crt
+cp bootstrap.conf /etc/kubernetes/
+chmod 644 /etc/kubernetes/bootstrap.conf
 
-# bootstrap.conf
-if [ -e "bootstrap.conf" ]; then
-    cp bootstrap.conf /etc/kubernetes/
-    chmod 644 /etc/kubernetes/bootstrap.conf
-else
-    echo_red "no such file bootstrap.conf"
-    exit
-fi
-
-# cni-plugins
-if [ -e "$CNI_PACKAGE" ]; then
-    mkdir -p /opt/cni/bin
-    tar -xf $CNI_PACKAGE -C /opt/cni/bin/
-else
-    echo_red "no such file $CNI_PACKAGE"
-    exit
-fi
-
-# kubelet binary
-if [ ! -e "/usr/local/kubernetes/kubelet" ]; then
-    echo_red "no such file kubelet"
-    exit
-fi
-
-
+mkdir -p /opt/cni/bin
+tar -xf $CNI_PACKAGE -C /opt/cni/bin/
 
 
 #
@@ -173,9 +145,4 @@ streamingConnectionIdleTimeout: 4h0m0s
 syncFrequency: 1m0s
 volumeStatsAggPeriod: 1m0s
 EOF
-
-
-
-
-
 
