@@ -1,17 +1,14 @@
 #!/bin/bash
-#
-#    install k8s node
-#
+################################
+#                              #
+#       install k8s node       #
+#                              #
+################################
 
-if [ ! -e /usr/local/kubernetes/kubelet ]; then
-	echo "binary file kubelet is not exists"
-	exit
-fi
+mkdir /usr/local/kubernetes/ -pv
+cp kubelet /usr/local/kubernetes/
+cp kube-proxy /usr/local/kubernetes/
 
-if [ ! -e /usr/local/kubernetes/kube-proxy ]; then
-	echo "binary file kube-proxy is not exists"
-	exit
-fi
 
 # set timezone
 systemctl start chronyd.service 

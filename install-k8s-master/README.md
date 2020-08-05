@@ -24,7 +24,7 @@ bash 04.install-k8s-node.sh master node1
 + k8s-master-certs.sh 生成证书文件脚本
 + k8s-master-config.sh 生成k8s-master所有的配置文件脚本
 
-#### 安装插件
+#### 安装插件：
 安装网络插件：
 ```console
 kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
