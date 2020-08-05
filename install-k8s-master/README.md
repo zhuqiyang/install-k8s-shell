@@ -1,6 +1,6 @@
 ## 此处的脚本用来执行安装kubernetes。
 
-安装之前先配置主节点到各个node节点的免秘钥，脚本适用于Centos7
+安装之前先配置主节点到各个node节点的免秘钥，脚本适用于CentOS7。
 #### 开始安装：
 install-k8s-master.sh 安装master节点上的api-server、controller-manager、scheduler三个组件
 ```console
