@@ -1,7 +1,7 @@
 #!/bin/bash
 ###########################################################
 #                                                         #
-#    install api-server、controller-manager、scheduler    #
+#     install api-server controller-manager scheduler     #
 #                                                         #
 ###########################################################
 
