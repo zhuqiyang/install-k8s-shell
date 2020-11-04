@@ -1,4 +1,10 @@
 #!/bin/bash
+###########################################################
+#                                                         #
+#    install api-server、controller-manager、scheduler    #
+#                                                         #
+###########################################################
+
 
 export K8S_PACKAGE_NAME=$1
 export ETCD_LISTEN_IP=$2

@@ -1,4 +1,10 @@
 #!/bin/bash
+#######################################
+#                                     #
+#     install kubelet、kube-proxy     #
+#                                     #
+#######################################
+
 
 export CNI_PACKAGE=$1
 export PROXY_IP=$2
