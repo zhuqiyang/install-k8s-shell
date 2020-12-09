@@ -4,7 +4,7 @@
 #### 开始安装：
 install-k8s-master.sh 安装master节点上的api-server、controller-manager、scheduler三个组件
 ```console
-bash 01.install-k8s-master.sh 192.168.1.20 kubernetes-server-linux-amd64.tar.gz k8s-master
+bash 01.install-k8s-master.sh kubernetes-server-linux-amd64.tar.gz 192.168.1.20 k8s-master
 ```
 安装主节点的kubelet、kube-proxy组件
 ```console
