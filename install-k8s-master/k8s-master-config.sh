@@ -97,6 +97,8 @@ KUBE_API_ARGS="--authorization-mode=Node,RBAC \\
     --requestheader-extra-headers-prefix=X-Remote-Extra- \\
     --requestheader-group-headers=X-Remote-Group \\
     --requestheader-username-headers=X-Remote-User\\
+    --service-account-issuer=https://kubernetes.default.svc.cluster.local \\
+    --service-account-signing-key-file=/etc/kubernetes/cert/sa.key \\
     --service-account-key-file=/etc/kubernetes/cert/sa.pub \\
     --tls-cert-file=/etc/kubernetes/cert/apiserver.crt \\
     --tls-private-key-file=/etc/kubernetes/cert/apiserver.key \\
