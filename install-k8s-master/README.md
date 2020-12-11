@@ -6,7 +6,7 @@ install-k8s-master.sh 安装master节点上的api-server、controller-manager、
 ```console
 bash 01.install-k8s-master.sh kubernetes-server-linux-amd64.tar.gz 192.168.1.20 k8s-master
 ```
-需要下载cni插件：
+下载cni插件：执行02脚本的时候会用到
 ```console
 wget https://github.com/containernetworking/plugins/releases/download/v0.8.5/cni-plugins-linux-amd64-v0.8.5.tgz
 ```
