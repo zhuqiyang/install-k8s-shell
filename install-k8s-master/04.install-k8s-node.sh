@@ -9,6 +9,8 @@ if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ]; then
 cat <<EOF
 
     bash $0 master node1
+    master: Master node hostname
+    node1: Child node hostname
 
 EOF
 exit

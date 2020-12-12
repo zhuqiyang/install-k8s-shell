@@ -27,7 +27,7 @@ bash 03.install-completion.sh
 ```console
 source ~/.bashrc
 ```
-安装node节点上的kubelet、kube-proxy，master为主节点hostname，node1为要安装的node节点的hostname。
+安装node节点上的kubelet、kube-proxy：master为主节点hostname，node1为要安装的node节点的hostname。
 ```console
 bash 04.install-k8s-node.sh master node1
 ```
