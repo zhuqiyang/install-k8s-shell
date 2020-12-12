@@ -11,4 +11,5 @@
 #### node节点：
 + kubelet
 + kube-proxy
+
 详细操作见各个目录的README.md
