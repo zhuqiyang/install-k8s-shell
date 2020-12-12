@@ -1,9 +1,6 @@
 ## 安装node节点
-配置好主机名称解析到各个节点， 在主节点上执行04脚本即可安装node节点，也可在node节点上执行04脚本安装。
++ 配置各个节点的主机名到IP的互相解析
+方式一：在主节点上执行04脚本即可安装node节点。
 
-#### 开机启动
-```console
-systemctl enable docker.service
-systemctl enable kubelet.service
-systemctl enable kube-proxy.service
-```
+方式二：也可在node节点上执行04脚本安装。
+
