@@ -11,20 +11,17 @@ https://github.com/kubernetes/kubernetes/releases
 wget https://github.com/containernetworking/plugins/releases/download/v0.8.5/cni-plugins-linux-amd64-v0.8.5.tgz
 ```
 #### 开始安装：
-install-k8s-master.sh 安装master节点上的api-server、controller-manager、scheduler三个组件
+安装master节点上的api-server、controller-manager、scheduler三个组件：
 ```console
 bash 01.install-k8s-master.sh kubernetes-server-linux-amd64.tar.gz 192.168.1.20 k8s-master
 ```
-安装主节点的kubelet、kube-proxy组件，proxy_ip为http代理的IP，hostname为当前主节点的 hostname。
+安装master节点上的kubelet、kube-proxy组件：proxy_ip为http代理的IP，hostname为当前主节点的 hostname。
 ```console
 bash 02.install-kubelet-kube-proxy.sh cni-plugins-linux-amd64-v0.8.5.tgz proxy_ip hostname
 ```
-安装命令行补全工具
+安装命令行补全工具：
 ```console
 bash 03.install-completion.sh
-```
-应用环境变量：
-```console
 source ~/.bashrc
 ```
 安装node节点上的kubelet、kube-proxy：master为主节点hostname，node1为要安装的node节点的hostname。
