@@ -99,3 +99,6 @@ chmod +x /etc/sysconfig/modules/ipvs.modules
 bash /etc/sysconfig/modules/ipvs.modules
 lsmod | grep ip_vs
 
+systemctl start kube-proxy.service
+systemctl enable kube-proxy.service
+

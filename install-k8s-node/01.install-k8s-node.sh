@@ -25,6 +25,7 @@ cp docker.service /usr/lib/systemd/system/docker.service
 
 systemctl daemon-reload
 systemctl start docker
+systemctl enable docker
 docker info
 
 
@@ -34,4 +35,3 @@ net.bridge.bridge-nf-call-iptables = 1
 net.bridge.bridge-nf-call-ip6tables = 1
 EOF
 sysctl -p
-

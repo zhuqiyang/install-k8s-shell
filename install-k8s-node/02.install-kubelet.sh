@@ -70,7 +70,6 @@ KUBELET_ARGS="--network-plugin=cni \\
 EOF
 
 
-
 cat > /var/lib/kubelet/config.yaml <<EOF
 address: 0.0.0.0
 apiVersion: kubelet.config.k8s.io/v1beta1
@@ -145,4 +144,7 @@ streamingConnectionIdleTimeout: 4h0m0s
 syncFrequency: 1m0s
 volumeStatsAggPeriod: 1m0s
 EOF
+
+systemctl start kubelet.service
+systemctl enable kubelet.service
 
