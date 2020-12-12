@@ -19,7 +19,7 @@ export CURRENT_DIR=$(pwd)
 if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ]; then
 cat <<EOF
 
-    bash 01.install-k8s-master.sh kubernetes-server-linux-amd64.tar.gz 192.168.1.20 k8s-master
+    bash $0 kubernetes-server-linux-amd64.tar.gz 192.168.1.20 k8s-master
 
 EOF
 exit

@@ -8,7 +8,7 @@ export NODE_NAME=$2
 if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ]; then
 cat <<EOF
 
-    bash 04.install-k8s-node.sh master node1
+    bash $0 master node1
 
 EOF
 exit
