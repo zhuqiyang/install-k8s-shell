@@ -1,7 +1,7 @@
 ## 此处的脚本用来执行安装kubernetes。
 
 安装之前先配置主节点到各个node节点的免秘钥，脚本适用于CentOS7。
-#### 准备工作
+#### 准备工作：
 下载kubernetes二进制文件：
 ```console
 https://github.com/kubernetes/kubernetes/releases
