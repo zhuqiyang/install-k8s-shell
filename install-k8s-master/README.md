@@ -3,8 +3,8 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;此脚本适用于CentOS 7。
 
 #### 准备工作：
-+ 安装之前先配置主节点到各个子节点的免秘钥
-+ 配置主机名到各个节点的dns解析
++ 配置主节点到各个子节点的免秘钥
++ 配置各个节点的主机名到ip的互相解析
 + 下载kubernetes二进制文件：
 ```console
 https://github.com/kubernetes/kubernetes/releases
