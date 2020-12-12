@@ -1,5 +1,5 @@
 ## 安装kubernetes的脚本
-这个脚本可以快速搭建 kubernetes 集群，适用于k8s 1.16、1.17、1.18，会在节点上安装以下组件。
+这个脚本可以快速搭建 kubernetes 集群，适用于k8s 1.16、1.17、1.18版本，会在节点上安装以下组件。
 #### master节点：
 + etcd
 + api-server
