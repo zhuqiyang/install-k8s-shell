@@ -1,13 +1,15 @@
 ## 安装kubernetes的各个组件。
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;此脚本适用于CentOS 7，安装之前先配置主节点到各个子节点的免秘钥，并配置主机名到各个节点的dns解析。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;此脚本适用于CentOS 7。
 
 #### 准备工作：
-下载kubernetes二进制文件：
++ 安装之前先配置主节点到各个子节点的免秘钥
++ 配置主机名到各个节点的dns解析
++ 下载kubernetes二进制文件：
 ```console
 https://github.com/kubernetes/kubernetes/releases
 ```
-下载cni插件：执行02脚本的时候会用到
++ 下载cni插件：执行02脚本的时候会用到
 ```console
 wget https://github.com/containernetworking/plugins/releases/download/v0.8.5/cni-plugins-linux-amd64-v0.8.5.tgz
 ```
