@@ -1,4 +1,10 @@
 #!/bin/bash
+######################################################
+#                                                    #
+#  install docker kubelet kube-proxy for child node  #
+#                                                    #
+######################################################
+
 
 export MASTER_NAME=$1
 export NODE_NAME=$2
