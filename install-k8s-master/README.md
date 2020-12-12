@@ -2,6 +2,10 @@
 
 安装之前先配置主节点到各个node节点的免秘钥，脚本适用于CentOS7。
 #### 准备工作
+下载kubernetes二进制文件：
+```console
+https://github.com/kubernetes/kubernetes/releases
+```
 下载cni插件：执行02脚本的时候会用到
 ```console
 wget https://github.com/containernetworking/plugins/releases/download/v0.8.5/cni-plugins-linux-amd64-v0.8.5.tgz
@@ -11,7 +15,7 @@ install-k8s-master.sh 安装master节点上的api-server、controller-manager、
 ```console
 bash 01.install-k8s-master.sh kubernetes-server-linux-amd64.tar.gz 192.168.1.20 k8s-master
 ```
-安装主节点的kubelet、kube-proxy组件，proxy_ip为http代理的IP，hostname为当前主节点的hostname 
+安装主节点的kubelet、kube-proxy组件，proxy_ip为http代理的IP，hostname为当前主节点的 hostname。
 ```console
 bash 02.install-kubelet-kube-proxy.sh cni-plugins-linux-amd64-v0.8.5.tgz proxy_ip hostname
 ```

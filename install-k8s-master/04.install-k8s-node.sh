@@ -4,9 +4,14 @@ export MASTER_NAME=$1
 export NODE_NAME=$2
 
 
-if [ -z "$MASTER_NAME" ] || [ -z "$NODE_NAME" ]; then
-	echo "hostname is not set"
-	exit
+
+if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ]; then
+cat <<EOF
+
+    bash 04.install-k8s-node.sh master node1
+
+EOF
+exit
 fi
 
 if [ ! -d "/etc/kubernetes" ]; then
