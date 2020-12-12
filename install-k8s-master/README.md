@@ -9,7 +9,7 @@
 ```console
 https://github.com/kubernetes/kubernetes/releases
 ```
-+ 下载cni插件：执行02脚本的时候会用到
++ 下载cni网络插件：执行02脚本的时候会用到。
 ```console
 wget https://github.com/containernetworking/plugins/releases/download/v0.8.5/cni-plugins-linux-amd64-v0.8.5.tgz
 ```
