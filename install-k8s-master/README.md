@@ -10,13 +10,17 @@ bash 01.install-k8s-master.sh kubernetes-server-linux-amd64.tar.gz 192.168.1.20 
 ```console
 wget https://github.com/containernetworking/plugins/releases/download/v0.8.5/cni-plugins-linux-amd64-v0.8.5.tgz
 ```
-安装主节点的kubelet、kube-proxy组件
+安装主节点的kubelet、kube-proxy组件，proxy_ip为http代理的IP，hostname为当前主节点的hostname
 ```console
-bash 02.install-kubelet-kube-proxy.sh
+bash 02.install-kubelet-kube-proxy.sh cni-plugins-linux-amd64-v0.8.5.tgz proxy_ip hostname
 ```
 安装命令行补全工具
 ```console
 bash 03.install-completion.sh
+```
+应用环境变量：
+```console
+source ~/.bashrc
 ```
 安装node节点上的kubelet、kube-proxy
 ```console
