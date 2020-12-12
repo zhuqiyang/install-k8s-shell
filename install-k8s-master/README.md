@@ -1,6 +1,6 @@
 ## 安装kubernetes的各个组件。
 
-此脚本适用于CentOS 7，安装之前先配置主节点到各个子节点的免秘钥，并配置主机名到各个节点的dns解析。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;此脚本适用于CentOS 7，安装之前先配置主节点到各个子节点的免秘钥，并配置主机名到各个节点的dns解析。
 
 #### 准备工作：
 下载kubernetes二进制文件：
