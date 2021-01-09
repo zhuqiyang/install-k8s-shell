@@ -11,12 +11,13 @@ export NODE_NAME=$2
 
 
 
-if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ]; then
+if [ -z "$1" ] || [ -z "$2" ]; then
 cat <<EOF
 
     bash $0 master node1
     master: Master node hostname
     node1: Child node hostname
+    Configure the secret free key to the node
 
 EOF
 exit

@@ -129,20 +129,11 @@ cd $CURRENT_DIR
 
 
 # enable services
-systemctl enable kube-apiserver.service
-systemctl start kube-apiserver.service
-systemctl status kube-apiserver.service
-
-systemctl enable kube-controller-manager.service
-systemctl start kube-controller-manager.service
-systemctl status kube-controller-manager.service
-
-systemctl enable kube-scheduler.service
-systemctl start kube-scheduler.service
-systemctl status kube-scheduler.service
+systemctl enable kube-apiserver.service kube-controller-manager.service kube-scheduler.service
+systemctl start kube-apiserver.service kube-controller-manager.service kube-scheduler.service
+systemctl status kube-apiserver.service kube-controller-manager.service kube-scheduler.service
 
 sleep 5
 kubectl create clusterrolebinding system:bootstrapper --user=system:bootstrapper --clusterrole=system:node-bootstrapper
 kubectl create clusterrolebinding auto-approve-csrs-for-group --group=system:bootstrappers --clusterrole=system:certificates.k8s.io:certificatesigningrequests:nodeclient
 kubectl create clusterrolebinding auto-approve-renewals-for-nodes --group=system:nodes --clusterrole=system:certificates.k8s.io:certificatesigningrequests:selfnodeclient
-

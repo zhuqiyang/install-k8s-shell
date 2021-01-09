@@ -342,10 +342,6 @@ lsmod | grep ip_vs
 
 
 # enable services
-systemctl enable kubelet.service
-systemctl start kubelet.service
-systemctl status kubelet.service
-
-systemctl enable kube-proxy.service
-systemctl start kube-proxy.service
-systemctl status kube-proxy.service
+systemctl enable kubelet.service kube-proxy.service
+systemctl start kubelet.service kube-proxy.service
+systemctl status kubelet.service kube-proxy.service
